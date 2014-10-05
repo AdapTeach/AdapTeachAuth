@@ -2,7 +2,7 @@
     "name": "AdapTeachAuth",
     "description": "Auth service for adapTeach apps",
     "version": "0.0.1",
-    "author": "charles Jacquin < charles.jacquin@autistici.org >",
+    "author": "Charles Jacquin < charles.jacquin@autistici.org >",
     "engines": {
         "node": "0.10.x",
         "npm": "1.4.x"
@@ -25,7 +25,8 @@
         "morgan": "~1.1.0",
         "q": "1.0.1",
         "request": "^2.40.0",
-        "nodemailer" : "1.2.1"
+        "nodemailer" : "1.2.1",
+        "browserid-verify" : "*"
     },
     "devDependencies": {
         "gulp" : "*"
