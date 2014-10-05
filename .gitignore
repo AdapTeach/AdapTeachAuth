@@ -1,0 +1,5 @@
+node_modules
+.idea
+src/config/env/development.js
+src/config/env/production.js
+src/config/env/test.js
