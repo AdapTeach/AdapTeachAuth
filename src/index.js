@@ -1,32 +1,15 @@
-'use strict';
-/**
- * Module dependencies.
- */
-var init = require('./config/init')(),
-    config = require('./config/config'),
+(function () {
+  'use strict';
+
+  require('./config/init')();
+
+  var config = require('./config/config'),
     mongoose = require('mongoose-q')(),
-    path = require('path');
+    db = mongoose.connect(config.db),
+    app = require('./config/express')(db),
+    server = require('http').Server(app);
 
+  server.listen(config.port);
 
-// Bootstrap db connection
-var db = mongoose.connect(config.db);
-
-// Init the express application
-var app = require('./config/express')(db);
-// Init socket.io
-var server = require('http').Server(app);
-
-//require all routes
-config.getGlobbedFiles('./routes/*.js').forEach(function(routePath) {
-    require(path.resolve(routePath))(app);
-});
-
-// Start the app by listening on <port>
-server.listen(config.port);
-
-
-// Expose app
-exports.app = app;
-
-// Logging initialization
-console.log('AdapTeach Auth service is running on port ' + config.port);
+  console.log(config.app.title+' is running on port ' + config.port);
+})();

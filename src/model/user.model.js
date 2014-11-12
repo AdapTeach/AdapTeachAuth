@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+  'use strict';
 
-var mongoose = require('mongoose-q')(),
+  var mongoose = require('mongoose-q')(),
     Schema = mongoose.Schema,
     bcrypt = require('bcryptjs'),
     Q = require('q'),
@@ -8,96 +9,73 @@ var mongoose = require('mongoose-q')(),
     jwt = require('jwt-simple'),
     moment = require('moment');
 
-var UserSchema = new Schema({
-    firstName: {
-        type: String
-    },
-    lastName: {
-        type: String
-    },
-    username: {
-        type: String,
-        unique: true,
-        trim: true
-    },
+  var UserSchema = new Schema({
     email: {
-        type: String,
-        required : 'you should provide an email',
-        match : [ /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "You should provide a valid email" ],
-        unique : true
-    },
-    emailValidated : {
-        type : Boolean,
-        default : false
+      type: String,
+      required: 'you should provide an email',
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "You should provide a valid email"],
+      unique: true
     },
     password: {
-        type: String,
-        required : true
+      type: String
     },
     salt: {
-        type: String
-    },
-    brief : {
-        type : String
+      type: String
     },
     createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    github: {
-        type : String
-    },
-    twitter: {
-        type : String
+      type: Date,
+      default: Date.now
     }
-});
+  });
 
-UserSchema.pre('save', function(next) {
+  UserSchema.pre('save', function (next) {
     var user = this;
     if (!user.isModified('password')) {
-        return next();
+      return next();
     }
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            user.password = hash;
-            next();
-        });
+    bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        user.password = hash;
+        next();
+      });
     });
-});
-UserSchema.methods.comparePassword = function(password) {
+  });
+  UserSchema.methods.comparePassword = function (password) {
     var defered = Q.defer();
-    bcrypt.compare(password, this.password, function(err, isMatch) {
-        if(err){
-            defered.reject(err);
-        }else{
-            defered.resolve(isMatch);
-        }
+    bcrypt.compare(password, this.password, function (err, isMatch) {
+      if (err) {
+        defered.reject(err);
+      } else {
+        defered.resolve(isMatch);
+      }
     });
     return defered.promise;
-};
+  };
 
 //Static methods
-UserSchema.statics.ensureAuthenticated = function(req, res, next) {
+  UserSchema.statics.ensureAuthenticated = function (req, res, next) {
     if (!req.headers.authorization) {
-        return res.status(401).end();
+      return res.status(401).end();
     }
     var token = req.headers.authorization.split(' ')[1];
     var payload = jwt.decode(token, config.TOKEN_SECRET);
     if (payload.exp <= Date.now()) {
-        return res.status(401).send({ message: 'Token has expired' });
+      res.json(401, {message: 'Token has expired'});
+      return;
     }
     req.user = payload.user;
     next();
-};
+  };
 
 
-UserSchema.statics.createJwtToken = function(user) {
+  UserSchema.statics.createJwtToken = function (user) {
     var payload = {
-        user: user,
-        iat: moment().valueOf(),
-        exp: moment().add(7, 'days').valueOf()
+      user: user,
+      iat: moment().valueOf(),
+      exp: moment().add(7, 'days').valueOf()
     };
     return jwt.encode(payload, config.TOKEN_SECRET);
-};
+  };
 
-module.exports = mongoose.model('User', UserSchema);
+  module.exports = mongoose.model('User', UserSchema);
+})();

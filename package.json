@@ -26,7 +26,10 @@
         "q": "1.0.1",
         "request": "^2.40.0",
         "nodemailer" : "1.2.1",
-        "browserid-verify" : "*"
+        "browserid-verify" : "*",
+        "moment" : "*",
+        "request-promise": "*",
+        "cors" : "*"
     },
     "devDependencies": {
         "gulp" : "*"
