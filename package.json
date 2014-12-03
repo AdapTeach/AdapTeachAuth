@@ -1,37 +1,33 @@
 {
-    "name": "AdapTeachAuth",
-    "description": "Auth service for adapTeach apps",
-    "version": "0.0.1",
-    "author": "Charles Jacquin < charles.jacquin@autistici.org >",
-    "engines": {
-        "node": "0.10.x",
-        "npm": "1.4.x"
-    },
-    "dependencies": {
-        "oauth-client": "~0.3.0",
-        "bcryptjs": "^0.7.12",
-        "body-parser": "~1.2.0",
-        "compression": "~1.0.1",
-        "cookie-parser": "~1.1.0",
-        "express": "~4.2.0",
-        "forever": "~0.11.0",
-        "glob": "~3.2.9",
-        "helmet": "~0.2.1",
-        "jwt-simple": "^0.2.0",
-        "lodash": "~2.4.1",
-        "method-override": "~1.0.0",
-        "mongoose": "~3.8.8",
-        "mongoose-q": "0.0.10",
-        "morgan": "~1.1.0",
-        "q": "1.0.1",
-        "request": "^2.40.0",
-        "nodemailer" : "1.2.1",
-        "browserid-verify" : "*",
-        "moment" : "*",
-        "request-promise": "*",
-        "cors" : "*"
-    },
-    "devDependencies": {
-        "gulp" : "*"
-    }
+  "name": "code-assesser",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "body-parser": "~1.8.1",
+    "method-override": "*",
+    "morgan": "~1.3.0",
+    "debug": "~2.0.0",
+    "q": "*",
+    "q-io": "*",
+    "validator": "*",
+    "iz": "*",
+    "lodash": "*",
+    "glob": "*",
+    "compression": "*",
+    "mongoose": "3.8.*",
+    "cors": "*",
+    "mongoose-q": "*",
+    "jwt-simple": "*",
+    "moment": "*"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-jshint": "*",
+    "jshint-stylish": "*",
+    "gulp-nodemon": "*",
+    "jasmine-node": "*"
+  }
 }
