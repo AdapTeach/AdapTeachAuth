@@ -19,6 +19,7 @@ authMiddleware.ensureAuthenticated = function (request, response, next) {
             next();
         }
     } catch (error) {
+        console.log(error);
         return response.status(401).send({message: error.message});
     }
 };

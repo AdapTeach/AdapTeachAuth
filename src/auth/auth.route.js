@@ -27,7 +27,11 @@ routes.publish = function (router) {
 
     router.get('/me', ensureAuthenticated, function (request, response) {
         User.findByIdQ(request.user._id)
-            .then(function returnEmail(user) {
+            .then(function checkExists(user) {
+                if (!user) httpError.throw(404, 'No user with id : ' + request.user._id);
+                return user;
+            })
+            .then(function (user) {
                 response.json(user);
             })
             .catch(httpError.handle(response));
