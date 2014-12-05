@@ -3,7 +3,7 @@ module.exports = {
     address: process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1",
     TOKEN_SECRET: 'ADD_YOUR_SECRET_HERE',
     db: {
-        address: 'mongodb://localhost/code-exam',
+        address: 'mongodb://localhost/learner-profile',
         user: '',
         pass: ''
     }

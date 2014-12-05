@@ -5,4 +5,4 @@ var config = require('./config/config'),
     mongoose = require('mongoose-q')();
 mongoose.connect(config.db.address);
 app.listen(config.port, config.address);
-console.log('Code-exam api started on port ' + config.port);
+console.log('learner-profile api started on port ' + config.port);

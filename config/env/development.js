@@ -3,7 +3,7 @@ module.exports = {
     address: '127.0.0.1',
     TOKEN_SECRET: 'mySecret',
     db: {
-        address: 'mongodb://localhost/code-exam',
+        address: 'mongodb://localhost/learner-profile',
         user: '',
         pass: ''
     }
